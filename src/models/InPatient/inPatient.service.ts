@@ -6,6 +6,9 @@ import { LoggerService } from '@nestjs/common'
 
 @Injectable()
 export class InPatientService extends BaseService<InPatient, InPatientRepository> {
+  getAll(): Promise<InPatient[]> {
+    return this.repository.getAll();
+  }
   constructor(repository: InPatientRepository) {
     super(repository)
   }

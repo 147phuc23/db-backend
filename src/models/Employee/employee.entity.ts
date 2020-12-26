@@ -16,4 +16,6 @@ export class Employee extends BaseEntity {
     phone_number: string;
     @Column()
     salary: number;
+    @Column()
+    user_id: number
 }

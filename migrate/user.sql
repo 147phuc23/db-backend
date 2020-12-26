@@ -7,4 +7,5 @@ create table User
     
 );
 
-
+alter table Employee add user_id int, add FOREIGN KEY (user_id) REFERENCES User(id);
+alter table Patient add user_id int, add FOREIGN KEY (user_id) REFERENCES User(id);

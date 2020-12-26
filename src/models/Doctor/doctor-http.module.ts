@@ -15,7 +15,7 @@ import { DepartmentService } from '../Department/department.service'
     ],
     providers: [ DoctorService],
     exports: [
-        TypeOrmModule,
+        TypeOrmModule,DoctorService
     ],
     controllers:[DoctorController],
     

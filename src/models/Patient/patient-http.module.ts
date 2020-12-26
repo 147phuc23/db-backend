@@ -3,7 +3,6 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { PatientController } from './patient.controller'
 import { PatientRepository } from './patient.repository'
 import { PatientService } from './patient.service'
-import {LoggerService} from '@nestjs/common';
 
 @Module({
     imports: [
@@ -11,12 +10,12 @@ import {LoggerService} from '@nestjs/common';
             PatientRepository,
         ]),
     ],
-    providers: [ PatientService],
+    providers: [PatientService],
     exports: [
-        TypeOrmModule,
+        TypeOrmModule, PatientService
     ],
-    controllers:[PatientController],
-    
+    controllers: [PatientController],
+
 })
 export class PatientModule {
 }

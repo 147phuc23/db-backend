@@ -25,7 +25,7 @@ import {
 
     @Get()
     index(): Promise<InPatient[]> {
-      return this.inPatientService.index()
+      return this.inPatientService.getAll()
     }
   
   

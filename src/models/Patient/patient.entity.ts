@@ -10,4 +10,7 @@ export class Patient extends BaseEntity {
 
     @Column()
     insurance_id: number
+
+    @Column()
+    user_id: number
 }
