@@ -1,5 +1,9 @@
 
 export class CreateTestDto {
-    testname: string;
-    testSsn: number
+    test_name: string;
+
+    min: number;
+
+    max: number;
+    normal: number;
 }
