@@ -15,6 +15,10 @@ export class DoctorService extends BaseService<Doctor, DoctorRepository> {
     super(repository)
   }
 
+  async getAll(): Promise<Doctor[]> {
+    return await this.repository.getAll();
+  }
+
   findByDoctorname(doctorname: string): Promise<Doctor | null> {
     return this.repository.findOne({  where: {doctorname: doctorname }})
   }

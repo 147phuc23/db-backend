@@ -28,11 +28,10 @@ export class DoctorController {
   @Get()
   findByDN(@Query("departmentName") departmentName: string): Promise<Doctor[]> {
     if (departmentName) {
-      return this.doctorService.findByDN(departmentName)
-      
+      return this.doctorService.findByDN(departmentName);
     }
     else
-      return this.doctorService.index()
+      return this.doctorService.getAll();
   }
 
   @Get('/:id')

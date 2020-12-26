@@ -4,8 +4,9 @@ import "reflect-metadata";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    cors:false,    logger: ['error', 'warn', 'log', 'debug'],
+        logger: ['error', 'warn', 'log', 'debug'],
   });
+  app.enableCors();
   await app.listen(3000);
 }
 bootstrap();

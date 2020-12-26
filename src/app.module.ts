@@ -39,6 +39,8 @@ import { ShiftModule } from './models/Shift/shift-http.module';
 import { TestModule } from './models/_Test/test-http.module';
 import { TestResultModule } from './models/TestResult/testResult-http.module';
 import { Test } from './models/_Test/test.entity';
+import { OutPatient } from './models/OutPatient/outPatient.entity';
+import { OutPatientModule } from './models/OutPatient/outPatient-http.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -66,28 +68,30 @@ import { Test } from './models/_Test/test.entity';
       Prescription,
       Shift,
       Test,
-      TestResult
+      TestResult,
+      OutPatient
     ],
-  }), 
-  ConclusionModule,
-      DepartmentModule,
-      DiagnoseModule,
-      DoctorModule,
-      EmployeeModule,
-      ExaminationModule,
-      IllnessModule,
-      InPatientModule,
-      InsuranceModule,
-      ManagerModule,
-      MedicineModule,
-      NurseModule,
-      NutritionModule,
-      PatientModule,
-      PrescriptionModule,
-      ShiftModule,
-      TestModule,
-      TestResultModule
-],
+  }),
+    ConclusionModule,
+    DepartmentModule,
+    DiagnoseModule,
+    DoctorModule,
+    EmployeeModule,
+    ExaminationModule,
+    IllnessModule,
+    InPatientModule,
+    InsuranceModule,
+    ManagerModule,
+    MedicineModule,
+    NurseModule,
+    NutritionModule,
+    PatientModule,
+    PrescriptionModule,
+    ShiftModule,
+    TestModule,
+    TestResultModule,
+    OutPatientModule
+  ],
   controllers: [AppController],
   providers: [AppService, MyLogger],
 })

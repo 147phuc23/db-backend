@@ -3,6 +3,7 @@ drop database
 
 create database hospital;
 use hospital;
+
 Create table Employee
 (
     ssn          char(9) PRIMARY KEY,
@@ -16,20 +17,20 @@ Create table Employee
 Create table Manager
 (
     mssn char(9) PRIMARY KEY,
-    Foreign Key (mssn) references Employee (ssn)
+    Foreign Key (mssn) references Employee (ssn) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 Create table Doctor
 (
     dssn     char(9) PRIMARY KEY,
     year_exp smallint CHECK (year_exp >3),
-    Foreign Key (dssn) references Employee (ssn)
+    Foreign Key (dssn) references Employee (ssn) ON DELETE CASCADE ON UPDATE CASCADE
 );
 Create table Nurse
 (
     nssn        char(9) PRIMARY KEY,
     isFoodNurse bool,
-    Foreign Key (nssn) references Employee (ssn)
+    Foreign Key (nssn) references Employee (ssn) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 Create table Department
@@ -71,14 +72,14 @@ Create table InPatient
     issn     char(9) PRIMARY KEY,
     room     smallint, 
     position varchar(255),
-    Foreign Key (issn) references Patient (ssn)
+    Foreign Key (issn) references Patient (ssn)ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 Create table OutPatient
 (
     ossn                char(9) PRIMARY KEY,
     next_examinate_date date not null,
-    Foreign Key (ossn) references Patient (ssn)
+    Foreign Key (ossn) references Patient (ssn)ON DELETE CASCADE ON UPDATE CASCADE
 );
 Create table Illness
 (
@@ -116,7 +117,7 @@ Create table Prescription
     pid                   int(10) PRIMARY KEY,
     medicalExamination_id int(10) not null,
     tid                   int(10),
-    Foreign Key (medicalExamination_id) references MedicalExamination (mid)
+    Foreign Key (medicalExamination_id) references MedicalExamination (mid)ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 Create table FilmResult
@@ -126,7 +127,7 @@ Create table FilmResult
     result                varchar(255),
     datetaken             date,
     PRIMARY KEY (fid, medicalExamination_id),
-    Foreign Key (medicalExamination_id) references MedicalExamination (mid)
+    Foreign Key (medicalExamination_id) references MedicalExamination (mid)ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 Create table TestResult
@@ -135,8 +136,8 @@ Create table TestResult
     medicalExamination_id int(10) not null,
     note                  varchar(255),
     result                varchar(255),
-    FOREIGN KEY (tid) references Test(test_name),
-    Foreign Key (medicalExamination_id) references MedicalExamination (mid),
+    FOREIGN KEY (tid) references Test(test_name)ON DELETE CASCADE ON UPDATE CASCADE,
+    Foreign Key (medicalExamination_id) references MedicalExamination (mid)ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (tid, medicalExamination_id)
 );
 
@@ -149,26 +150,26 @@ Create table InPatientMedicalRecord
     instatus      varchar(255) CHECK (instatus IN ('GOOD','BAD','NORMAL')),
     outstatus     varchar(255) CHECK (outstatus IN ('GOOD','BAD','NORMAL')),
     UNIQUE (inpatient_ssn),
-    Foreign Key (inpatient_ssn) references InPatient (issn)
+    Foreign Key (inpatient_ssn) references InPatient (issn)ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
 alter table Manager
     add
         departmentName varchar(255) not null,
-    add Foreign Key (departmentName) references Department (dname)
+    add Foreign Key (departmentName) references Department (dname)ON DELETE CASCADE ON UPDATE CASCADE
 ;
 alter table Patient
     add
         insurance_id int(10),
     add
-        Foreign Key (insurance_id) references Insurance (id)
+        Foreign Key (insurance_id) references Insurance (id)ON DELETE CASCADE ON UPDATE CASCADE
 ;
 alter table TestResult
     add
         type_name varchar(255),
     add
-        Foreign key (type_name) references Test (test_name)
+        Foreign key (type_name) references Test (test_name)ON DELETE CASCADE ON UPDATE CASCADE
 ;
 alter table InPatient
     add
@@ -176,30 +177,30 @@ alter table InPatient
     add
         outdoctorssn char(9),
     add
-        Foreign Key (indoctorssn) references Doctor (dssn),
-    add Foreign Key (outdoctorssn) references Doctor (dssn);
+        Foreign Key (indoctorssn) references Doctor (dssn)ON DELETE CASCADE ON UPDATE CASCADE,
+    add Foreign Key (outdoctorssn) references Doctor (dssn)ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 #4 1:N
 alter table Doctor
     add departmentName varchar(255) not null,
-    add Foreign Key (departmentName) references Department (dname);
+    add Foreign Key (departmentName) references Department (dname)ON DELETE CASCADE ON UPDATE CASCADE;
 alter table Shift
     add nurse_ssn  char(9),
     add doctor_ssn char(9),
-    add Foreign Key Shift (nurse_ssn) references Nurse (nssn),
-    add FOREIGN KEY (doctor_ssn) references Doctor (dssn)
+    add Foreign Key Shift (nurse_ssn) references Nurse (nssn)ON DELETE CASCADE ON UPDATE CASCADE,
+    add FOREIGN KEY (doctor_ssn) references Doctor (dssn)ON DELETE CASCADE ON UPDATE CASCADE
 ;
 
 alter table FilmResult
     add doctor_assign_ssn char(9) not null,
     add doctor_do_ssn     char(9),
     add diagnose          varchar(255),
-    add Foreign Key (doctor_assign_ssn) references Doctor (dssn),
+    add Foreign Key (doctor_assign_ssn) references Doctor (dssn)ON DELETE CASCADE ON UPDATE CASCADE,
 
-    add Foreign Key (doctor_do_ssn) references Doctor (dssn),
+    add Foreign Key (doctor_do_ssn) references Doctor (dssn)ON DELETE CASCADE ON UPDATE CASCADE,
     add
-        Foreign Key (diagnose) references Diagnose (diag_name)
+        Foreign Key (diagnose) references Diagnose (diag_name)ON DELETE CASCADE ON UPDATE CASCADE
 ;
 
 alter table TestResult
@@ -207,28 +208,28 @@ alter table TestResult
     add
         doctor_take_ssn   char(9) not null,
     add
-        Foreign Key (doctor_assign_ssn) references Doctor (dssn),
-    add Foreign Key (doctor_take_ssn) references Doctor (dssn);
+        Foreign Key (doctor_assign_ssn) references Doctor (dssn)ON DELETE CASCADE ON UPDATE CASCADE,
+    add Foreign Key (doctor_take_ssn) references Doctor (dssn)ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table MedicalExamination
     add
         diag_name varchar(255),
     add
-        Foreign Key (diag_name) references Diagnose (diag_name);
+        Foreign Key (diag_name) references Diagnose (diag_name)ON DELETE CASCADE ON UPDATE CASCADE;
 create table doctorInDepartment
 (
     dname      varchar(255),
     doctor_ssn varchar(9),
-    Foreign Key (doctor_ssn) references Doctor (dssn),
-    Foreign Key (dname) references Department (dname)
+    Foreign Key (doctor_ssn) references Doctor (dssn)ON DELETE CASCADE ON UPDATE CASCADE,
+    Foreign Key (dname) references Department (dname)ON DELETE CASCADE ON UPDATE CASCADE
 );
 #5 N-M 
 Create table Conclusion
 (
     Illness  varchar(255) PRIMARY KEY,
     diagnose varchar(255),
-    Foreign Key (Illness) references Illness (illness_Name),
-    Foreign Key (diagnose) references Diagnose (diag_name)
+    Foreign Key (Illness) references Illness (illness_Name)ON DELETE CASCADE ON UPDATE CASCADE,
+    Foreign Key (diagnose) references Diagnose (diag_name)ON DELETE CASCADE ON UPDATE CASCADE
 );
 Create table PrescriptionHaveMedicine
 (
@@ -238,16 +239,16 @@ Create table PrescriptionHaveMedicine
     how_to_use      varchar(255),
     amount          smallint,
     Primary Key (prescription_id, medicine_name),
-    Foreign Key (prescription_id) references Prescription (pid),
-    Foreign Key (medicine_name) references Medicine (mname)
+    Foreign Key (prescription_id) references Prescription (pid)ON DELETE CASCADE ON UPDATE CASCADE,
+    Foreign Key (medicine_name) references Medicine (mname)ON DELETE CASCADE ON UPDATE CASCADE
 );
 Create table InpatientMedicalRecordHaveIllness
 (
     id           int(10),
     illness_name varchar(255),
     Primary Key (id, illness_name),
-    Foreign Key (id) references InPatientMedicalRecord (id),
-    Foreign Key (Illness_name) references Illness (illness_name)
+    Foreign Key (id) references InPatientMedicalRecord (id)ON DELETE CASCADE ON UPDATE CASCADE,
+    Foreign Key (Illness_name) references Illness (illness_name)ON DELETE CASCADE ON UPDATE CASCADE
 );
 #6 3  entity relation
 Create table Examination
@@ -255,12 +256,12 @@ Create table Examination
     medical_examination_id int(10),
     patient_ssn            char(9),
     shift_id               int(10),
-    fromtime              time,
+    fromttime              time,
     totime                 time,
     Primary key (medical_examination_id, patient_ssn),
-    Foreign Key (medical_examination_id) references MedicalExamination (mid),
-    Foreign key (patient_ssn) references Patient (ssn),
-    Foreign key (shift_id) references Shift (id)
+    Foreign Key (medical_examination_id) references MedicalExamination (mid)ON DELETE CASCADE ON UPDATE CASCADE,
+    Foreign key (patient_ssn) references Patient (ssn)ON DELETE CASCADE ON UPDATE CASCADE,
+    Foreign key (shift_id) references Shift (id)ON DELETE CASCADE ON UPDATE CASCADE
 );
 Create table InpatienInDepartment
 (
@@ -268,9 +269,9 @@ Create table InpatienInDepartment
     doctor_assign_ssn char(9),
     dname             varchar(255),
     Primary key (inpatient_ssn, doctor_assign_ssn),
-    Foreign key (inpatient_ssn) references InPatient (issn),
-    Foreign key (dname) references Department (dname),
-    Foreign key (doctor_assign_ssn) references Doctor (dssn)
+    Foreign key (inpatient_ssn) references InPatient (issn)ON DELETE CASCADE ON UPDATE CASCADE,
+    Foreign key (dname) references Department (dname)ON DELETE CASCADE ON UPDATE CASCADE,
+    Foreign key (doctor_assign_ssn) references Doctor (dssn)ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -280,17 +281,7 @@ Create table HaveNutrition
     nutrition_name varchar(255),
     amount         int,
     Primary key (patient_ssn, nutrition_name),
-    Foreign Key (patient_ssn) references Patient (ssn)
+    Foreign Key (patient_ssn) references Patient (ssn)ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 #Checked
-
-create table User
-(
-    id int auto_increment primary key,
-    username varchar(50) unique not null,
-    password varchar(50) unique not null,
-    full_name varchar(),
-    gender varchar(),
-    citizen_id int(9) 
-)
