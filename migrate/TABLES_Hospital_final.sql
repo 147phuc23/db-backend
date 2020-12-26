@@ -256,7 +256,7 @@ Create table Examination
     medical_examination_id int(10),
     patient_ssn            char(9),
     shift_id               int(10),
-    fromttime              time,
+    fromtime              time,
     totime                 time,
     Primary key (medical_examination_id, patient_ssn),
     Foreign Key (medical_examination_id) references MedicalExamination (mid)ON DELETE CASCADE ON UPDATE CASCADE,
