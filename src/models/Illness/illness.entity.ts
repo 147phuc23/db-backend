@@ -1,10 +1,10 @@
 import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn} from "typeorm";
 
-@Entity()
+@Entity({name:"Illness"})
 export class Illness extends BaseEntity {
     @PrimaryColumn()
-    illnessname: string;
+    illness_name: string;
 
-    @Column({name: 'illness_ssn'})
-    illnessSsn: number
+    @Column()
+    depiction: string
 }

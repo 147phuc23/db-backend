@@ -1,6 +1,6 @@
 import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn} from "typeorm";
 
-@Entity()
+@Entity({name:"Examination"})
 export class Examination extends BaseEntity {
     @PrimaryColumn()
     medical_examination_id: number;

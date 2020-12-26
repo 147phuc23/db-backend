@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, JoinColumn, OneToOn
 import { Diagnose } from "../Diagnose/diagnose.entity";
 import { Illness } from "../Illness/illness.entity";
 
-@Entity()
+@Entity({name:"Conclusion"})
 export class Conclusion extends BaseEntity {
     @PrimaryColumn()
     Illness: string;

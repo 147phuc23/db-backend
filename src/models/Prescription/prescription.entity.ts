@@ -1,6 +1,6 @@
 import {Entity, PrimaryGeneratedColumn, Column, BaseEntity} from "typeorm";
 
-@Entity()
+@Entity({name:"Prescription"})
 export class Prescription extends BaseEntity {
     @PrimaryGeneratedColumn()
     pid: number;

@@ -25,10 +25,16 @@ import {
 
     @Get()
     index(): Promise<Doctor[]> {
+
       return this.doctorService.index()
     }
   
-  
+    @Get()
+    findByDN(@Param("departmentName") departmentName: string): Promise<Doctor[]> {
+
+      return this.doctorService.findByDN(departmentName)
+    }
+
     @Get('/:id')
     async show(@Param('id') id: EntityId): Promise<Doctor> {
       const doctor = await this.doctorService.findById(id)

@@ -1,6 +1,6 @@
 import {Entity, PrimaryGeneratedColumn, Column, BaseEntity} from "typeorm";
 
-@Entity()
+@Entity({name: "Shift"})
 export class Shift extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;

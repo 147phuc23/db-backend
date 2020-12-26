@@ -1,12 +1,12 @@
 import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn} from "typeorm";
 
-@Entity()
+@Entity({name:"Nutrition"})
 export class Nutrition extends BaseEntity {
     @Column()
-    description: string;
+    depiction: string;
 
     @PrimaryColumn()
-    nutritionname: string;
+    nutrition_name: string;
 
 
 }

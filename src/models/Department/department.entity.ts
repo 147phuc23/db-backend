@@ -1,6 +1,6 @@
 import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn} from "typeorm";
 
-@Entity()
+@Entity({name:"Department"})
 export class Department extends BaseEntity {
     @PrimaryColumn()
     dname: string;
