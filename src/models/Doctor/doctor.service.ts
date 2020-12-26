@@ -8,7 +8,6 @@ import { DepartmentService } from '../Department/department.service'
 
 @Injectable()
 export class DoctorService extends BaseService<Doctor, DoctorRepository> {
-  private dr: DepartmentService;
   findByDN(departmentName: string): Promise<Doctor[]> {
      return this.repository.find({  where: {departmentName: departmentName }})
   }

@@ -284,3 +284,13 @@ Create table HaveNutrition
 );
 
 #Checked
+
+create table User
+(
+    id int auto_increment primary key,
+    username varchar(50) unique not null,
+    password varchar(50) unique not null,
+    full_name varchar(),
+    gender varchar(),
+    citizen_id int(9) 
+)
