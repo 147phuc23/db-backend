@@ -41,7 +41,8 @@ import { TestResultModule } from './models/TestResult/testResult-http.module';
 import { Test } from './models/_Test/test.entity';
 import { OutPatient } from './models/OutPatient/outPatient.entity';
 import { OutPatientModule } from './models/OutPatient/outPatient-http.module';
-
+import { UserModule } from './models/users/user-http.module';
+import { User } from './models/users/user.entity';
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'mysql',
@@ -69,7 +70,8 @@ import { OutPatientModule } from './models/OutPatient/outPatient-http.module';
       Shift,
       Test,
       TestResult,
-      OutPatient
+      OutPatient,
+      User
     ],
   }),
     ConclusionModule,
@@ -90,7 +92,8 @@ import { OutPatientModule } from './models/OutPatient/outPatient-http.module';
     ShiftModule,
     TestModule,
     TestResultModule,
-    OutPatientModule
+    OutPatientModule,
+    UserModule
   ],
   controllers: [AppController],
   providers: [AppService, MyLogger],

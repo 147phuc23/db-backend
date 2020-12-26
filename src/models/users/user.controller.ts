@@ -17,7 +17,7 @@ import {
   import { plainToClass } from 'class-transformer'
   import { UpdateUserDto } from './dto/update-user.dto'
   import { DeleteResult } from 'typeorm/index'
-  
+  import { CreatePatientDto } from './dto/create-patient.dto'  
   @UseInterceptors(ClassSerializerInterceptor)
   @Controller('users')
   export class UserController {
@@ -45,7 +45,41 @@ import {
   
       return plainToClass(User, createdUser)
     }
+    @Post('/patient')
+    async createPatient(@Body() userData: CreatePatientDto): Promise<User> {
+      const createdUser = await this.userService.createPatient(userData)
   
+      return plainToClass(User, createdUser)
+    }
+  
+    @Post('/login')
+    async login(@Body() user: User) {
+      const res = await this.userService.findByUsername(user.username)
+      // console.log('a', res[0])
+      const emCheck = await this.userService.isEmployee(res[0].id)
+      // console.log('b',emCheck[0])
+      const paCheck = await this.userService.isPatient(res[0].id)
+      // console.log('c', )
+      if (Object.keys(emCheck).length) {
+        var role: String = 'employee'
+        var ssn: String = emCheck[0].ssn
+      }
+      if (Object.keys(paCheck).length) {
+        var role: String = 'patient'
+        var ssn: String = paCheck[0].ssn
+      }
+      if (res[0].password == user.password) {
+        var isOk: Boolean = true
+      } else{
+        var isOk: Boolean = false
+      }
+      return {
+        isOk: isOk,
+        role: role,
+        ssn: ssn
+      }
+    }
+
     @Put('/:id')
     update(@Param('id') id: EntityId, @Body() userData: UpdateUserDto): Promise<User> {
       return this.userService.update(id, userData)
