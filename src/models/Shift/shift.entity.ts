@@ -4,10 +4,8 @@ import {Entity, PrimaryGeneratedColumn, Column, BaseEntity} from "typeorm";
 export class Shift extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
-
     @Column()
     location: string;
-
     @Column()
     fromtime: number;
     @Column()

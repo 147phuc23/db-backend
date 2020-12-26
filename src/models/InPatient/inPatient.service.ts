@@ -11,7 +11,7 @@ export class InPatientService extends BaseService<InPatient, InPatientRepository
   }
 
   findByInPatientname(inPatientname: string): Promise<InPatient | null> {
-    return this.repository.findOne({ inPatientname: inPatientname })
+    return this.repository.findOne({  where: {inPatientname: inPatientname }})
   }
 
   getInactiveInPatients(): Promise<InPatient[]> {

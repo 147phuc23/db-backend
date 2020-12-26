@@ -11,7 +11,7 @@ export class NutritionService extends BaseService<Nutrition, NutritionRepository
   }
 
   findByNutritionname(nutritionname: string): Promise<Nutrition | null> {
-    return this.repository.findOne({ nutritionname: nutritionname })
+    return this.repository.findOne({  where: { nutritionname: nutritionname }})
   }
 
   getInactiveNutritions(): Promise<Nutrition[]> {

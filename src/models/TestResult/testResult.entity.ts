@@ -4,7 +4,7 @@ import {Entity, PrimaryGeneratedColumn, Column, BaseEntity} from "typeorm";
 export class TestResult extends BaseEntity {
     @PrimaryGeneratedColumn()
     tid: string;
-    @PrimaryGeneratedColumn()
+    @Column()
     medicalExamination_id: number;
     @Column()
     note: string;

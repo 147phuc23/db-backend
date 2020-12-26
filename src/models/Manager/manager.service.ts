@@ -11,7 +11,7 @@ export class ManagerService extends BaseService<Manager, ManagerRepository> {
   }
 
   findByManagername(managername: string): Promise<Manager | null> {
-    return this.repository.findOne({ managername: managername })
+    return this.repository.findOne({  where: {managername: managername }})
   }
 
   getInactiveManagers(): Promise<Manager[]> {

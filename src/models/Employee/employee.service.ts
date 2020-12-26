@@ -11,7 +11,7 @@ export class EmployeeService extends BaseService<Employee, EmployeeRepository> {
   }
 
   findByEmployeename(employeename: string): Promise<Employee | null> {
-    return this.repository.findOne({ employeename: employeename })
+    return this.repository.findOne({  where: {employeename: employeename }})
   }
 
   getInactiveEmployees(): Promise<Employee[]> {

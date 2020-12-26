@@ -9,12 +9,5 @@ export class ShiftService extends BaseService<Shift, ShiftRepository> {
   constructor(repository: ShiftRepository) {
     super(repository)
   }
-
-  findByShiftname(shiftname: string): Promise<Shift | null> {
-    return this.repository.findOne({ shiftname: shiftname })
-  }
-
-  getInactiveShifts(): Promise<Shift[]> {
-    return this.repository.getInactiveShifts()
-  }
+  
 }

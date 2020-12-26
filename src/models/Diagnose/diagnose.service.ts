@@ -11,7 +11,7 @@ export class DiagnoseService extends BaseService<Diagnose, DiagnoseRepository> {
   }
 
   findByDiagnosename(diagnosename: string): Promise<Diagnose | null> {
-    return this.repository.findOne({ diagnosename: diagnosename })
+    return this.repository.findOne({  where: {diagnosename: diagnosename }})
   }
 
   getInactiveDiagnoses(): Promise<Diagnose[]> {

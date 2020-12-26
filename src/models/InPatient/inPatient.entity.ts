@@ -1,8 +1,8 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn} from "typeorm";
 
 @Entity()
 export class InPatient extends BaseEntity {
-    @PrimaryGeneratedColumn()
+    @PrimaryColumn()
     issn: string;
 
     @Column()

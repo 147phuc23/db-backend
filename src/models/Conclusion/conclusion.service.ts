@@ -11,7 +11,7 @@ export class ConclusionService extends BaseService<Conclusion, ConclusionReposit
   }
 
   findByConclusionname(conclusionname: string): Promise<Conclusion | null> {
-    return this.repository.findOne({ conclusionname: conclusionname })
+    return this.repository.findOne({ where : {conclusionname: conclusionname} })
   }
 
   getInactiveConclusions(): Promise<Conclusion[]> {

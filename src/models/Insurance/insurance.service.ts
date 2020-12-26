@@ -11,7 +11,7 @@ export class InsuranceService extends BaseService<Insurance, InsuranceRepository
   }
 
   findByInsurancename(insurancename: string): Promise<Insurance | null> {
-    return this.repository.findOne({ insurancename: insurancename })
+    return this.repository.findOne({  where: {insurancename: insurancename }})
   }
 
   getInactiveInsurances(): Promise<Insurance[]> {

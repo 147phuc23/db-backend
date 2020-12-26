@@ -1,6 +1,6 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn} from "typeorm";
 
-@Entity()
+@Entity({name: "Doctor"})
 export class Doctor extends BaseEntity {
     @Column()
     year_exp: number;
@@ -8,6 +8,6 @@ export class Doctor extends BaseEntity {
     @Column()
     departmentName: string;
 
-    @PrimaryGeneratedColumn({name: 'dssn'})
+    @PrimaryColumn({name: 'dssn'})
     dssn: number
 }

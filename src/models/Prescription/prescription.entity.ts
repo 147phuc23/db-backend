@@ -6,7 +6,7 @@ export class Prescription extends BaseEntity {
     pid: number;
 
     @Column()
-    medicalExamination: number;
+    medicalExamination_id: number;
     @Column()
     tid : number
 }

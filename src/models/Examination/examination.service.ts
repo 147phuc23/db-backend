@@ -11,7 +11,7 @@ export class ExaminationService extends BaseService<Examination, ExaminationRepo
   }
 
   findByExaminationname(examinationname: string): Promise<Examination | null> {
-    return this.repository.findOne({ examinationname: examinationname })
+    return this.repository.findOne({ where: { examinationname: examinationname }})
   }
 
   getInactiveExaminations(): Promise<Examination[]> {

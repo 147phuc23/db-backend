@@ -1,11 +1,11 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn} from "typeorm";
 
 @Entity()
 export class Employee extends BaseEntity {
-    @PrimaryGeneratedColumn()
+    @PrimaryColumn()
     ssn: string;
 
-    @Column()
+    @Column({nullable: true})
     ename: string;
 
     @Column()

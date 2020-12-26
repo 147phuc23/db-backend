@@ -11,7 +11,7 @@ export class TestService extends BaseService<Test, TestRepository> {
   }
 
   findByTestname(testname: string): Promise<Test | null> {
-    return this.repository.findOne({ testname: testname })
+    return this.repository.findOne({  where :{testname: testname }})
   }
 
   getInactiveTests(): Promise<Test[]> {

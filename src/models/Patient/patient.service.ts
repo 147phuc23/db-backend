@@ -10,8 +10,8 @@ export class PatientService extends BaseService<Patient, PatientRepository> {
     super(repository)
   }
 
-  findByPatientname(patientname: string): Promise<Patient | null> {
-    return this.repository.findOne({ patientname: patientname })
+  findByPatientName(patientssn: string): Promise<Patient | null> {
+    return this.repository.findOne({  where: { patient_name: patientssn }})
   }
 
   getInactivePatients(): Promise<Patient[]> {

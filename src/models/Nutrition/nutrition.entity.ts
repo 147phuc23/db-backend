@@ -1,11 +1,11 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn} from "typeorm";
 
 @Entity()
 export class Nutrition extends BaseEntity {
     @Column()
     description: string;
 
-    @PrimaryGeneratedColumn()
+    @PrimaryColumn()
     nutritionname: string;
 
 

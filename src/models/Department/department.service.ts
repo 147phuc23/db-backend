@@ -11,7 +11,7 @@ export class DepartmentService extends BaseService<Department, DepartmentReposit
   }
 
   findByDepartmentname(departmentname: string): Promise<Department | null> {
-    return this.repository.findOne({ departmentname: departmentname })
+    return this.repository.findOne({  where: {departmentname: departmentname }})
   }
 
   getInactiveDepartments(): Promise<Department[]> {
