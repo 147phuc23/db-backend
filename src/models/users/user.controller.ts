@@ -64,8 +64,8 @@ import {
         var role: String = 'employee'
         var ssn: String = emCheck[0].ssn
         var isManager = getConnection().query(`select * from Manager where mssn = '${ssn}'`);
-        if (Object.keys(emCheck).length) {
-          ssn = 'manager';
+        if (Object.keys(isManager).length) {
+          role = 'manager';
         }
       }
       if (Object.keys(paCheck).length) {
