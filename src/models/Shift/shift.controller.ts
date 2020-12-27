@@ -16,7 +16,7 @@ import {
   import { EntityId } from 'typeorm/repository/EntityId'
   import { plainToClass } from 'class-transformer'
   import { UpdateShiftDto } from './dto/update-shift.dto'
-  import { DeleteResult } from 'typeorm'
+  import { DeleteResult, getConnection } from 'typeorm'
   
   @UseInterceptors(ClassSerializerInterceptor)
   @Controller('shifts')
@@ -50,7 +50,7 @@ import {
     update(@Param('id') id: EntityId, @Body() shiftData: UpdateShiftDto): Promise<Shift> {
       return this.shiftService.update(id, shiftData)
     }
-  
+
     @Delete('/:id')
     destroy(@Param('id') id: EntityId): Promise<DeleteResult> {
       return this.shiftService.delete(id)

@@ -351,77 +351,107 @@ BEGIN
                             inner join Shift S on ex.shift_id = S.id
                    where patient_ssn = patientSsn order by ex.medical_examination_id desc limit  1);
 end;
--- Comment
-create role Manager;
-create role Doctor;
-create role Patient;
-
-
-
-grant execute on procedure SelectDoctorListByShift  to Manager;
-grant execute on procedure SelectDoctorListByDate  to Manager;
-grant execute on procedure SelectDoctorListByShiftByDateAllDepartment  to Manager;
-grant execute on procedure SelectDoctorListByDateInAllDepartment to Manager;
-grant execute on procedure countPatientByShiftAndDateInDepartment to Manager;
-grant execute on procedure countInPatientByShiftAndDateInDepartment to Manager;
-grant execute on procedure countOutPatientByShiftAndDateInDepartment to Manager;
-grant execute on procedure countInPatientByShiftAndDateInAllDepartment to Manager;
-grant execute on procedure countOutPatientByShiftAndDateInAllDepartment to Manager;
-grant execute on procedure countTestByDateInDepartment to Manager;
-grant execute on procedure countTestByDateInAllDepartment to Manager;
-grant execute on procedure listAllExamPatientByDoctorAndDate  to  'TienTran'@'localhost';
-grant execute on procedure listAllExamPatientByDoctorAndDate to Patient;
-grant execute on procedure  listAllMedicationOfInpatient to Patient;
-grant execute on procedure listAllAssignTest to Patient;
-grant execute on procedure  listAllAssignFilm to Patient;
-grant execute on procedure listAllPatientWithSameIllness to Patient;
-grant execute on procedure listAllPatientWithSameIllnessWithCaution to Patient;
-grant execute on procedure  listAllPatientOut to Patient;
-grant execute on procedure add_insurance  to Doctor;
-grant execute on procedure NEAREST_MEDICINE  to Doctor;
-grant execute on procedure findAllMedicineUsed to Doctor;
-grant execute on procedure listAllTestResultInLastExamination to Doctor;
-grant execute on procedure listAllTestResultInAllTime to Doctor;
-grant execute on procedure listAllTestResultInAllTimeWithCaution to Doctor;
-grant execute on procedure listAllDoctorInLastExamination to Doctor;
 
 
 -- CREATE REAL USERS ( MANGER, DOCTOR, PATIENT)
-create user 'TranMinhHien'@'localhost' identified by 'minhhien';
-grant 'Doctor' to 'TranMinhHien'@'localhost';
-create user 'TienTran'@'localhost' identified by 'tientran';
-grant 'Patient' to 'TienTran'@'localhost';
-create user 'DangPhuc'@'localhost' identified by 'dangphuc';
-grant 'Manager' to 'DangPhuc'@'localhost';
+DROP USER if exists 'TranMinhHienDoctor'@'localhost';
+create user 'TranMinhHienDoctor'@'localhost' identified by 'minhhien';
+DROP USER if exists 'TienTranPatient'@'localhost';
+create user 'TienTranPatient'@'localhost' identified by 'tientran';
+DROP USER if exists 'DangPhucManager'@'localhost';
+create user 'DangPhucManager'@'localhost' identified by 'dangphuc';
+
 -- END CREATE REAL USERS
 
-##
--- Comment  grant execute on procedure SelectDoctorListByShift  to 'Manager@localhost';
--- Comment  grant execute on procedure SelectDoctorListByDate  to 'Manager@localhost';
--- Comment  grant execute on procedure SelectDoctorListByShiftByDateAllDepartment  to 'Manager@localhost';
--- Comment  grant execute on procedure SelectDoctorListByDateInAllDepartment to 'Manager@localhost';
--- Comment  grant execute on procedure countPatientByShiftAndDateInDepartment to 'Manager@localhost';
--- Comment  grant execute on procedure countInPatientByShiftAndDateInDepartment to 'Manager@localhost';
--- Comment  grant execute on procedure countOutPatientByShiftAndDateInDepartment to 'Manager@localhost';
--- Comment  grant execute on procedure countInPatientByShiftAndDateInAllDepartment to 'Manager@localhost';
--- Comment  grant execute on procedure countOutPatientByShiftAndDateInAllDepartment to 'Manager@localhost';
--- Comment  grant execute on procedure countTestByDateInDepartment to 'Manager@localhost';
--- Comment  grant execute on procedure countTestByDateInAllDepartment to 'Manager@localhost';
--- Comment  grant execute on procedure listAllExamPatientByDoctorAndDate  to  'Doctor@localhost';
--- Comment  grant execute on procedure listAllExamPatientByDoctorAndDate to 'Doctor@localhost';
--- Comment  grant execute on procedure  listAllMedicationOfInpatient to 'Doctor@localhost';
--- Comment  grant execute on procedure listAllAssignTest to 'Doctor@localhost';
--- Comment  grant execute on procedure  listAllAssignFilm to 'Doctor@localhost';
--- Comment  grant execute on procedure listAllPatientWithSameIllness to 'Doctor@localhost';
--- Comment  grant execute on procedure listAllPatientWithSameIllnessWithCaution to 'Doctor@localhost';
--- Comment  grant execute on procedure  listAllPatientOut to 'Doctor@localhost';
--- Comment  grant execute on procedure add_insurance  to 'Patient@localhost';
--- Comment  grant execute on procedure NEAREST_MEDICINE  to 'Patient@localhost';
--- Comment  grant execute on procedure findAllMedicineUsed to 'Patient@localhost';
--- Comment  grant execute on procedure listAllTestResultInLastExamination to 'Patient@localhost';
--- Comment  grant execute on procedure listAllTestResultInAllTime to 'Patient@localhost';
--- Comment  grant execute on procedure listAllTestResultInAllTimeWithCaution to 'Patient@localhost';
--- Comment  grant execute on procedure listAllDoctorInLastExamination to 'Patient@localhost';
+
+-- GRANTING PRIVILEGES
+-- 'DangPhucManager'@'localhost'
+grant select on Department to 'DangPhucManager'@'localhost';
+grant select on Doctor to 'DangPhucManager'@'localhost';
+grant select on doctorInDepartment to 'DangPhucManager'@'localhost';
+grant select on Employee to 'DangPhucManager'@'localhost';
+grant select on Examination to 'DangPhucManager'@'localhost';
+grant select on InPatient to 'DangPhucManager'@'localhost';
+grant select on OutPatient to 'DangPhucManager'@'localhost';
+grant select on Shift to 'DangPhucManager'@'localhost';
+
+-- Doctor
+grant select on Doctor to 'TranMinhHienDoctor'@'localhost';
+grant select on doctorInDepartment to 'TranMinhHienDoctor'@'localhost';
+grant select on Nurse to 'TranMinhHienDoctor'@'localhost';
+grant select on Employee to 'TranMinhHienDoctor'@'localhost';
+grant select on Department to 'TranMinhHienDoctor'@'localhost';
+grant select on doctorInDepartment to 'TranMinhHienDoctor'@'localhost';
 
 
+grant select, insert, update, delete on InPatient to 'TranMinhHienDoctor'@'localhost';
+grant select, insert, update, delete on OutPatient to 'TranMinhHienDoctor'@'localhost';
+grant select, insert, update, delete on Patient to 'TranMinhHienDoctor'@'localhost';
+grant select, insert, update, delete on Diagnose to 'TranMinhHienDoctor'@'localhost';
+grant select, insert, update, delete on Illness to 'TranMinhHienDoctor'@'localhost';
+grant select, insert, update, delete on FilmResult to 'TranMinhHienDoctor'@'localhost';
+grant select, insert, update, delete on TestResult to 'TranMinhHienDoctor'@'localhost';
+grant select, insert, update, delete on Test to 'TranMinhHienDoctor'@'localhost';
+grant select, insert, update, delete on Prescription to 'TranMinhHienDoctor'@'localhost';
+grant select, insert, update, delete on InPatientMedicalRecord to 'TranMinhHienDoctor'@'localhost';
+grant select, insert, update, delete on Conclusion to 'TranMinhHienDoctor'@'localhost';
+grant select, insert, update, delete on Medicine to 'TranMinhHienDoctor'@'localhost';
+grant select, insert, update, delete on Examination to 'TranMinhHienDoctor'@'localhost';
+grant select, insert, update, delete on MedicalExamination to 'TranMinhHienDoctor'@'localhost';
+grant select, insert, update, delete on InpatienInDepartment to 'TranMinhHienDoctor'@'localhost';
+grant select, insert, update, delete on InpatientMedicalRecordHaveIllness to 'TranMinhHienDoctor'@'localhost';
 
+-- Patient
+
+grant select,insert,update,delete on Patient to 'TienTranPatient'@'localhost';
+
+grant select on InPatient to 'TienTranPatient'@'localhost';
+grant select on OutPatient to 'TienTranPatient'@'localhost';
+grant select on Patient to 'TienTranPatient'@'localhost';
+grant select on Diagnose to 'TienTranPatient'@'localhost';
+grant select on Illness to 'TienTranPatient'@'localhost';
+grant select on FilmResult to 'TienTranPatient'@'localhost';
+grant select on TestResult to 'TienTranPatient'@'localhost';
+grant select on Test to 'TienTranPatient'@'localhost';
+grant select on Prescription to 'TienTranPatient'@'localhost';
+grant select on InPatientMedicalRecord to 'TienTranPatient'@'localhost';
+grant select on Conclusion to 'TienTranPatient'@'localhost';
+grant select on Medicine to 'TienTranPatient'@'localhost';
+grant select on Examination to 'TienTranPatient'@'localhost';
+grant select on MedicalExamination to 'TienTranPatient'@'localhost';
+grant select on InpatienInDepartment to 'TienTranPatient'@'localhost';
+grant select on InpatientMedicalRecordHaveIllness to 'TienTranPatient'@'localhost';
+-- END GRANTING PRIVILEGES
+
+
+-- GRANTING PROCEDURE
+grant execute on procedure SelectDoctorListByShift  to 'DangPhucManager'@'localhost';
+grant execute on procedure SelectDoctorListByDate  to 'DangPhucManager'@'localhost';
+grant execute on procedure SelectDoctorListByShiftByDateAllDepartment  to 'DangPhucManager'@'localhost';
+grant execute on procedure SelectDoctorListByDateInAllDepartment to 'DangPhucManager'@'localhost';
+grant execute on procedure countPatientByShiftAndDateInDepartment to 'DangPhucManager'@'localhost';
+grant execute on procedure countInPatientByShiftAndDateInDepartment to 'DangPhucManager'@'localhost';
+grant execute on procedure countOutPatientByShiftAndDateInDepartment to 'DangPhucManager'@'localhost';
+grant execute on procedure countInPatientByShiftAndDateInAllDepartment to 'DangPhucManager'@'localhost';
+grant execute on procedure countOutPatientByShiftAndDateInAllDepartment to 'DangPhucManager'@'localhost';
+grant execute on procedure countTestByDateInDepartment to 'DangPhucManager'@'localhost';
+grant execute on procedure countTestByDateInAllDepartment to 'DangPhucManager'@'localhost';
+
+
+grant execute on procedure listAllExamPatientByDoctorAndDate  to  'TienTranPatient'@'localhost';
+grant execute on procedure listAllExamPatientByDoctorAndDate to 'TienTranPatient'@'localhost';
+grant execute on procedure  listAllMedicationOfInpatient to 'TienTranPatient'@'localhost';
+grant execute on procedure listAllAssignTest to 'TienTranPatient'@'localhost';
+grant execute on procedure  listAllAssignFilm to 'TienTranPatient'@'localhost';
+grant execute on procedure listAllPatientWithSameIllness to 'TienTranPatient'@'localhost';
+grant execute on procedure listAllPatientWithSameIllnessWithCaution to 'TienTranPatient'@'localhost';
+grant execute on procedure  listAllPatientOut to 'TienTranPatient'@'localhost';
+
+grant execute on procedure add_insurance  to 'TranMinhHienDoctor'@'localhost';
+grant execute on procedure NEAREST_MEDICINE  to 'TranMinhHienDoctor'@'localhost';
+grant execute on procedure findAllMedicineUsed to 'TranMinhHienDoctor'@'localhost';
+grant execute on procedure listAllTestResultInLastExamination to 'TranMinhHienDoctor'@'localhost';
+grant execute on procedure listAllTestResultInAllTime to 'TranMinhHienDoctor'@'localhost';
+grant execute on procedure listAllTestResultInAllTimeWithCaution to 'TranMinhHienDoctor'@'localhost';
+grant execute on procedure listAllDoctorInLastExamination to 'TranMinhHienDoctor'@'localhost';
+-- END GRANTING PROCEDURE

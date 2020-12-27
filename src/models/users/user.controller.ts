@@ -16,7 +16,7 @@ import {
   import { EntityId } from 'typeorm/repository/EntityId'
   import { plainToClass } from 'class-transformer'
   import { UpdateUserDto } from './dto/update-user.dto'
-  import { DeleteResult } from 'typeorm/index'
+  import { DeleteResult, getConnection } from 'typeorm/index'
   import { CreatePatientDto } from './dto/create-patient.dto'  
   @UseInterceptors(ClassSerializerInterceptor)
   @Controller('users')
@@ -63,6 +63,10 @@ import {
       if (Object.keys(emCheck).length) {
         var role: String = 'employee'
         var ssn: String = emCheck[0].ssn
+        var isManager = getConnection().query(`select * from Manager where mssn = '${ssn}'`);
+        if (Object.keys(emCheck).length) {
+          ssn = 'manager';
+        }
       }
       if (Object.keys(paCheck).length) {
         var role: String = 'patient'

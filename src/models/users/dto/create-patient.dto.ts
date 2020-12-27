@@ -1,7 +1,7 @@
 
 export class CreatePatientDto {
   username: string
-  pasword: string
+  password: string
   userSsn: number
   name: string
   insurance: number
